@@ -1,5 +1,5 @@
 # Estapa 1: Construcción del entorno y dependencias
-FROM node:20-bookworm-slim AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Copiar manifiestos de dependencias
@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build --if-present
 
 # Etapa 2: Entorno de ejecución seguro (Producción)
-FROM node:20-bookworm-slim AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
