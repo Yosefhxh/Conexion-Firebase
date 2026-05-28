@@ -55,6 +55,8 @@ jobs:
 
       # 6. CONTROL DE SEGURIDAD: Seguridad de Contenedores (Trivy)
       - name: Análisis de Vulnerabilidades en Contenedor (Trivy)
+        id: trivy_scan
+        continue-on-error: true
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'conexion-firebase:prod'
@@ -63,3 +65,13 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+      - name: Reportar resultado de Trivy
+        if: always()
+        run: |
+          if [ "${{ steps.trivy_scan.outcome }}" = "success" ]; then
+            echo "Trivy finalizó correctamente y no encontró vulnerabilidades críticas o altas."
+          else
+            echo "::error::Trivy detectó vulnerabilidades críticas o altas en la imagen."
+            exit 1
+          fi
