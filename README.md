@@ -1,55 +1,94 @@
-**Conexción Firebase**
+# Conexción Firebase
 
-Proyecto de ejemplo en Expo + React Native que demuestra autenticación con Firebase Auth y operaciones CRUD en Firestore por usuario.
+Aplicación Expo + React Native para autenticación con Firebase Auth y operaciones CRUD sobre Firestore con datos aislados por usuario.
 
-**Características**
-- Autenticación con correo/contraseña (Firebase Auth).
-- Persistencia de sesión (AsyncStorage) cuando está disponible.
-- CRUD en Firestore bajo la ruta `users/{uid}/items`.
-- Compatible con Expo SDK 55 (dev: Expo Go o development build).
+## Índice
 
-**Requisitos**
+- Descripción del proyecto
+- Tecnologías utilizadas
+- Evidencias de pruebas
+- Instalación y configuración local
+- Firestore y reglas de seguridad
+- Guía de uso
+- Estructura principal del proyecto
+- Licencia
+
+## Descripción del proyecto
+
+Conexción Firebase es una app de ejemplo construida con Expo SDK 55 que permite iniciar sesión con Firebase Authentication y administrar registros en Firestore. La información se guarda por usuario bajo la ruta `users/{uid}/items`, de modo que cada cuenta solo trabaja con su propio contenido.
+
+La app usa AsyncStorage para mantener la sesión en dispositivos nativos cuando está disponible y conserva una experiencia compatible con Expo Go o development build.
+
+## Tecnologías utilizadas
+
+- Expo SDK 55
+- React Native 0.83
+- Firebase Auth
+- Cloud Firestore
+- AsyncStorage
+- JavaScript
+
+## Evidencias de pruebas
+
+Las pruebas de funcionamiento exitoso y de fallo están disponibles en la carpeta `assets/`:
+
+- [Prueba exitosa](assets/DevSuccesfull.mov)
+- [Prueba de error](assets/DevError.mov)
+
+Estas evidencias muestran el comportamiento esperado de la aplicación durante el flujo de desarrollo.
+
+## Instalación y configuración local
+
+### Requisitos
+
 - Node.js
 - npm o yarn
-- Expo CLI (opcional: `npx expo` funciona sin instalación global)
 - Cuenta y proyecto en Firebase
 
-**Variables de entorno**
-Define en el fichero `.env` (ya incluido en `.gitignore`):
+### Variables de entorno
 
-- EXPO_PUBLIC_FIREBASE_API_KEY
-- EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN
-- EXPO_PUBLIC_FIREBASE_PROJECT_ID
-- EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET
-- EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-- EXPO_PUBLIC_FIREBASE_APP_ID
+Crea un archivo `.env` en la raíz del proyecto con estas variables:
 
-Ejemplo (no compartir claves públicas en repositorios públicos):
-
+```bash
 EXPO_PUBLIC_FIREBASE_API_KEY=your_api_key
+EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+EXPO_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+EXPO_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
 
-**Instalación y ejecución**
+### Pasos
+
 1. Instala dependencias:
 
 ```bash
 npm install
 ```
 
-2. Inicia Expo (limpia caché si es necesario):
+2. Inicia Expo:
+
+```bash
+npm start
+```
+
+3. Abre la app según tu entorno:
+
+- Android: `npm run android`
+- iOS: `npm run ios`
+- Web: `npm run web`
+
+Si necesitas limpiar la caché durante el desarrollo, puedes usar:
 
 ```bash
 npx expo start -c
 ```
 
-3. Abre en dispositivo con Expo Go (asegúrate de tener la versión compatible con SDK 55), o usa el simulador:
+## Firestore y reglas de seguridad
 
-- iOS: presiona `i` en la interfaz de Expo o `npx expo start --ios`
-- Android: presiona `a` o `npx expo start --android`
+Pega estas reglas en Firebase Console → Firestore → Rules para restringir el acceso a cada usuario:
 
-**Firestore — reglas recomendadas (desarrollo/producción básica)**
-Pega estas reglas en Firebase Console → Firestore → Rules:
-
-```
+```javascript
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -65,18 +104,24 @@ service cloud.firestore {
 }
 ```
 
-Esto permite que cada usuario solo acceda a sus propios `items`.
+Con esta configuración, cada usuario solo puede leer y modificar sus propios registros.
 
-**Archivos clave**
-- [src/config/firebase.js](src/config/firebase.js): inicialización de Firebase y Auth (usa `initializeAuth` con `AsyncStorage` si está disponible).
-- [src/services/items.js](src/services/items.js): funciones CRUD sobre `users/{uid}/items`.
-- [src/screens/FirebaseAccessScreen.js](src/screens/FirebaseAccessScreen.js): pantalla principal de autenticación y CRUD.
-- `.env`: variables públicas de Firebase (no subir al repo).
+## Guía de uso
 
-**Notas y troubleshooting**
-- Si ves "Project is incompatible with this version of Expo Go", actualiza Expo Go en tu dispositivo o crea un development build con EAS.
-- Si aparece "Missing or insufficient permissions", revisa las reglas de Firestore y que el `projectId` en `.env` coincida con el proyecto de Firebase.
-- Advertencia sobre persistencia: la app intenta usar `@react-native-async-storage/async-storage` para persistir sesión; si no está disponible, la sesión se mantendrá solo en memoria.
+1. Abre la aplicación en Expo Go, un simulador o el navegador.
+2. Inicia sesión con una cuenta válida de Firebase.
+3. Usa la pantalla principal para crear, consultar, editar o eliminar registros.
+4. Verifica que la información quede separada por usuario en Firestore.
 
-**Licencia**
-Proyecto de ejemplo — usa y adapta libremente.
+Si AsyncStorage está disponible, la sesión puede persistir entre aperturas en dispositivos nativos.
+
+## Estructura principal del proyecto
+
+- [src/config/firebase.js](src/config/firebase.js): inicialización de Firebase y Auth.
+- [src/services/items.js](src/services/items.js): operaciones CRUD sobre Firestore.
+- [src/screens/FirebaseAccessScreen.js](src/screens/FirebaseAccessScreen.js): pantalla principal de acceso y gestión.
+- [firestore.rules](firestore.rules): reglas base de seguridad para Firestore.
+
+## Licencia
+
+Proyecto de ejemplo. Puedes usarlo y adaptarlo según tus necesidades.
