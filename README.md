@@ -1,23 +1,45 @@
 # Conexción Firebase
 
-Aplicación Expo + React Native para autenticación con Firebase Auth y operaciones CRUD sobre Firestore con datos aislados por usuario.
+Sistema de ejemplo construido con Expo y Firebase para autenticación, persistencia de sesión y operaciones CRUD sobre Firestore con aislamiento por usuario.
+
+| Estado | Versión | Licencia |
+| --- | --- | --- |
+| Activo | Expo SDK 55 | MIT / uso académico |
 
 ## Índice
 
 - Descripción del proyecto
+- Evidencias de prueba
 - Tecnologías utilizadas
-- Evidencias de pruebas
 - Instalación y configuración local
-- Firestore y reglas de seguridad
+- Reglas de Firestore
 - Guía de uso
 - Estructura principal del proyecto
 - Licencia
 
 ## Descripción del proyecto
 
-Conexción Firebase es una app de ejemplo construida con Expo SDK 55 que permite iniciar sesión con Firebase Authentication y administrar registros en Firestore. La información se guarda por usuario bajo la ruta `users/{uid}/items`, de modo que cada cuenta solo trabaja con su propio contenido.
+Conexción Firebase es una aplicación móvil y web hecha con Expo SDK 55 y React Native. Su objetivo es demostrar un flujo completo de autenticación con Firebase Auth y manejo de datos en Cloud Firestore, manteniendo la información separada por usuario bajo la ruta `users/{uid}/items`.
 
-La app usa AsyncStorage para mantener la sesión en dispositivos nativos cuando está disponible y conserva una experiencia compatible con Expo Go o development build.
+La app usa AsyncStorage para conservar la sesión en dispositivos nativos cuando está disponible y mantiene compatibilidad con Expo Go, simulador o development build.
+
+## Evidencias de prueba
+
+Las evidencias de funcionamiento están incluidas en `assets/` y se muestran aquí para una revisión más clara.
+
+### Resultado exitoso
+
+<video controls width="100%" preload="metadata" src="assets/DevSuccesfull.mov"></video>
+
+[Abrir video exitoso](assets/DevSuccesfull.mov)
+
+### Resultado con error
+
+<video controls width="100%" preload="metadata" src="assets/DevError.mov"></video>
+
+[Abrir video de error](assets/DevError.mov)
+
+Si tu visor de Markdown no reproduce el video incrustado, usa los enlaces directos de respaldo anteriores.
 
 ## Tecnologías utilizadas
 
@@ -27,15 +49,6 @@ La app usa AsyncStorage para mantener la sesión en dispositivos nativos cuando 
 - Cloud Firestore
 - AsyncStorage
 - JavaScript
-
-## Evidencias de pruebas
-
-Las pruebas de funcionamiento exitoso y de fallo están disponibles en la carpeta `assets/`:
-
-- [Prueba exitosa](assets/DevSuccesfull.mov)
-- [Prueba de error](assets/DevError.mov)
-
-Estas evidencias muestran el comportamiento esperado de la aplicación durante el flujo de desarrollo.
 
 ## Instalación y configuración local
 
@@ -58,7 +71,7 @@ EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 EXPO_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
-### Pasos
+### Pasos de instalación
 
 1. Instala dependencias:
 
@@ -66,27 +79,27 @@ EXPO_PUBLIC_FIREBASE_APP_ID=your_app_id
 npm install
 ```
 
-2. Inicia Expo:
+2. Inicia el proyecto:
 
 ```bash
 npm start
 ```
 
-3. Abre la app según tu entorno:
+3. Ejecuta la app según el entorno:
 
 - Android: `npm run android`
 - iOS: `npm run ios`
 - Web: `npm run web`
 
-Si necesitas limpiar la caché durante el desarrollo, puedes usar:
+Si necesitas limpiar la caché durante el desarrollo:
 
 ```bash
 npx expo start -c
 ```
 
-## Firestore y reglas de seguridad
+## Reglas de Firestore
 
-Pega estas reglas en Firebase Console → Firestore → Rules para restringir el acceso a cada usuario:
+Pega estas reglas en Firebase Console → Firestore → Rules para restringir el acceso por usuario:
 
 ```javascript
 rules_version = '2';
@@ -104,14 +117,14 @@ service cloud.firestore {
 }
 ```
 
-Con esta configuración, cada usuario solo puede leer y modificar sus propios registros.
+Con esta configuración, cada usuario solo puede ver y modificar sus propios datos.
 
 ## Guía de uso
 
 1. Abre la aplicación en Expo Go, un simulador o el navegador.
 2. Inicia sesión con una cuenta válida de Firebase.
 3. Usa la pantalla principal para crear, consultar, editar o eliminar registros.
-4. Verifica que la información quede separada por usuario en Firestore.
+4. Verifica que cada usuario solo vea su información en Firestore.
 
 Si AsyncStorage está disponible, la sesión puede persistir entre aperturas en dispositivos nativos.
 
@@ -124,4 +137,4 @@ Si AsyncStorage está disponible, la sesión puede persistir entre aperturas en 
 
 ## Licencia
 
-Proyecto de ejemplo. Puedes usarlo y adaptarlo según tus necesidades.
+Proyecto de ejemplo para uso académico y adaptación interna.
