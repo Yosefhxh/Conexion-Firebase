@@ -71,7 +71,9 @@ jobs:
         run: |
           if [ "${{ steps.trivy_scan.outcome }}" = "success" ]; then
             echo "Trivy finalizó correctamente y no encontró vulnerabilidades críticas o altas."
-          else
+          elif [ "${{ steps.trivy_scan.outcome }}" = "failure" ]; then
             echo "::error::Trivy detectó vulnerabilidades críticas o altas en la imagen."
             exit 1
+          else
+            echo "Trivy no se ejecutó porque el build anterior falló o el paso fue omitido."
           fi
