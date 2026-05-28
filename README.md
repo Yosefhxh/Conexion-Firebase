@@ -41,7 +41,7 @@ El proyecto mantiene total compatibilidad con **Expo Go**, emuladores/simuladore
 Demostración del proceso correcto de autenticación, inserción de datos en Firestore en tiempo real y persistencia de sesión.
 
 <p align="center">
-  <video src="./assets/DevSuccesfull2.mov" width="100%" style="max-height: 450px;" controls preload="metadata">
+  <video src="./assets/DevSuccesfull.mov" width="100%" style="max-height: 450px;" controls preload="metadata">
     Tu navegador no soporta la reproducción de video nativa. Puedes ver el archivo directamente en <a href="./assets/DevSuccesfull2.mov">assets/DevSuccesfull2.mov</a>.
   </video>
 </p>
@@ -50,7 +50,7 @@ Demostración del proceso correcto de autenticación, inserción de datos en Fir
 Demostración visual de la resiliencia del sistema ante fallos de red, credenciales incorrectas y el bloqueo por reglas de seguridad.
 
 <p align="center">
-  <video src="./assets/DevError2.mov" width="100%" style="max-height: 450px;" controls preload="metadata">
+  <video src="./assets/DevError.mov" width="100%" style="max-height: 450px;" controls preload="metadata">
     Tu navegador no soporta la reproducción de video nativa. Puedes ver el archivo directamente en <a href="./assets/DevError2.mov">assets/DevError2.mov</a>.
   </video>
 </p>
