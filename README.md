@@ -25,21 +25,19 @@ La app usa AsyncStorage para conservar la sesión en dispositivos nativos cuando
 
 ## Evidencias de prueba
 
-Las evidencias de funcionamiento están incluidas en `assets/` y se muestran aquí para una revisión más clara.
+Las evidencias de funcionamiento se muestran a continuación.
 
 ### Resultado exitoso
 
-<video controls width="100%" preload="metadata" src="assets/DevSuccesfull.mov"></video>
-
-[Abrir video exitoso](assets/DevSuccesfull.mov)
+<video controls width="100%" preload="metadata">
+  <source src="assets/DevSuccesfull.mov" type="video/quicktime">
+</video>
 
 ### Resultado con error
 
-<video controls width="100%" preload="metadata" src="assets/DevError.mov"></video>
-
-[Abrir video de error](assets/DevError.mov)
-
-Si tu visor de Markdown no reproduce el video incrustado, usa los enlaces directos de respaldo anteriores.
+<video controls width="100%" preload="metadata">
+  <source src="assets/DevError.mov" type="video/quicktime">
+</video>
 
 ## Tecnologías utilizadas
 
