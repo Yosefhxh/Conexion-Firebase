@@ -48,3 +48,5 @@ if (app) {
 }
 
 export { auth, db, firebaseConfig, isFirebaseConfigured, requiredConfigKeys };
+// ERROR INTENCIONAL: El uso de eval() es un riesgo crítico detectado por SAST
+eval("console.log('Inyección de código de prueba');");
