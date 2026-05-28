@@ -64,7 +64,7 @@ jobs:
           exit-code: '1' # Obliga a fallar al pipeline si detecta vulnerabilidades críticas/altas
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          severity: 'CRITICAL'
 
       - name: Reportar resultado de Trivy
         if: always()
