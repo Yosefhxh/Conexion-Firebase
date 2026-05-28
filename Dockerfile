@@ -21,7 +21,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Crear un usuario sin privilegios de root para mitigar escalada de privilegios
-RUN addgroup -g 1001 -S nodejs && adduser -S nestuser -u 1001
+RUN groupadd --system --gid 1001 nodejs && useradd --system --uid 1001 --gid nodejs --create-home nestuser
 
 COPY package*.json ./
 RUN npm ci --only=production
