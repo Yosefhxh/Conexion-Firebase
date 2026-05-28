@@ -11,7 +11,7 @@ Sistema de demostración profesional construido con **Expo** y **Firebase** que 
 ## 📋 Índice
 
 - [Descripción del Proyecto](#-descripción-del-proyecto)
-- [🎥 Evidencias de Prueba (Demos)](#-evidencias-de-prueba-demos)
+- [🧪 Prueba de Dependencias (SCA)](#-prueba-de-dependencias-sca)
 - [🛠️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
 - [⚙️ Instalación y Configuración Local](#️-instalación-y-configuración-local)
 - [🔒 Reglas de Seguridad de Firestore](#-reglas-de-seguridad-de-firestore)
@@ -33,27 +33,57 @@ El proyecto mantiene total compatibilidad con **Expo Go**, emuladores/simuladore
 
 ---
 
-## 🎥 Evidencias de Prueba (Demos)
+## 🧪 Prueba de Dependencias (SCA)
 
-> 💡 **Nota sobre la visualización:** Los reproductores nativos de HTML5 integrados en plataformas como GitHub/GitLab renderizan correctamente estos archivos `.mov` de forma relativa siempre y cuando se encuentren pusheados dentro de la carpeta `assets/` de tu repositorio.
+Esta validación se realizó para demostrar el comportamiento del pipeline de seguridad ante una dependencia vulnerable y su posterior remediación, sin modificar el flujo de trabajo de CI/CD.
 
-### ✔️ Flujo Completo: Resultado Exitoso
-Demostración del proceso correcto de autenticación, inserción de datos en Firestore en tiempo real y persistencia de sesión.
+### PARTE 1: Cómo forzar el FALLO (Línea base insegura - Color ROJO)
 
-<p align="center">
-  <video src="./assets/DevSuccesfull.mov" width="100%" style="max-height: 450px;" controls preload="metadata">
-    Tu navegador no soporta la reproducción de video nativa. Puedes ver el archivo directamente en <a href="./assets/DevSuccesfull2.mov">assets/DevSuccesfull2.mov</a>.
-  </video>
-</p>
+Se instaló intencionalmente una librería obsoleta con vulnerabilidades críticas/altas para forzar el fallo del paso de auditoría SCA.
 
-### ❌ Manejo de Excepciones: Resultado con Error
-Demostración visual de la resiliencia del sistema ante fallos de red, credenciales incorrectas y el bloqueo por reglas de seguridad.
+Comando ejecutado:
 
-<p align="center">
-  <video src="./assets/DevError.mov" width="100%" style="max-height: 450px;" controls preload="metadata">
-    Tu navegador no soporta la reproducción de video nativa. Puedes ver el archivo directamente en <a href="./assets/DevError2.mov">assets/DevError2.mov</a>.
-  </video>
-</p>
+```bash
+npm install lodash@4.17.11
+```
+
+Publicación del cambio:
+
+```bash
+git add package.json package-lock.json
+git commit -m "test: forzar fallo de seguridad en dependencias (SCA)"
+git push origin main
+```
+
+Resultado esperado en GitHub Actions:
+
+- El pipeline avanza hasta el paso de auditoría de dependencias.
+- `npm audit` detecta vulnerabilidades críticas en la versión instalada.
+- El proceso se bloquea con código de error y estado final en rojo.
+
+### PARTE 2: Cómo hacer que PASE (Línea base segura - Color VERDE)
+
+Para remediar el problema y restaurar la línea base segura, se eliminó la dependencia vulnerable.
+
+Comando ejecutado:
+
+```bash
+npm uninstall lodash
+```
+
+Publicación del cambio de remediación:
+
+```bash
+git add package.json package-lock.json
+git commit -m "fix: eliminar dependencia vulnerable y restaurar entorno seguro"
+git push origin main
+```
+
+Resultado esperado en GitHub Actions:
+
+- `npm audit` ya no reporta vulnerabilidades críticas de esa dependencia.
+- El pipeline completa sus validaciones de seguridad de forma exitosa.
+- Estado final en verde.
 
 ---
 
