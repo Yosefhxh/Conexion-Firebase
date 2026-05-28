@@ -30,13 +30,13 @@ Las evidencias de funcionamiento se muestran a continuación.
 ### Resultado exitoso
 
 <video controls width="100%" preload="metadata">
-  <source src="assets/DevSuccesfull.mov" type="video/quicktime">
+  <source src="assets/DevSuccesfull2.mov" type="video/quicktime">
 </video>
 
 ### Resultado con error
 
 <video controls width="100%" preload="metadata">
-  <source src="assets/DevError.mov" type="video/quicktime">
+  <source src="assets/DevError2.mov" type="video/quicktime">
 </video>
 
 ## Tecnologías utilizadas
