@@ -55,6 +55,7 @@ jobs:
 
       # 6. CONTROL DE SEGURIDAD: Seguridad de Contenedores (Trivy)
       - name: Análisis de Vulnerabilidades en Contenedor (Trivy)
+        id: trivy_scan # CORRECCIÓN: Necesario para que el script de abajo pueda leer el resultado
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'conexion-firebase:prod'
